@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+section {
+    position: relative;
+    height: 80vh;
+    width: 100vw;
+    background-color: gray;
+    display: flex;
+
+    #status {
+        position: relative;
+        width: 15vw;
+        background-color: darkblue;
+    }
+
+    #game {
+        position: relative;
+        width: 70vw;
+        background-color: darkgreen;
+    }
+
+    #app {
+        position: relative;
+        width: 15vw;
+        background-color: darkcyan;
+    }
+}
+#stuff {
+    background-color: gray;
+    height: 20vh;
+}
