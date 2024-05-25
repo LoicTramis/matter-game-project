@@ -10,23 +10,24 @@ section {
     background-color: gray;
     display: flex;
 
-    #status {
-        position: relative;
-        width: 15vw;
-        background-color: darkblue;
-    }
+}
+#status {
+    position: relative;
+    width: 15vw;
+    background-color: darkblue;
+}
 
-    #game {
-        position: relative;
-        width: 70vw;
-        background-color: darkgreen;
-    }
+#game {
+    position: relative;
+    width: 70vw;
+    background-color: whitesmoke;
+    border: 1px solid black;
+}
 
-    #app {
-        position: relative;
-        width: 15vw;
-        background-color: darkcyan;
-    }
+#app {
+    position: relative;
+    width: 15vw;
+    background-color: darkcyan;
 }
 #stuff {
     background-color: gray;

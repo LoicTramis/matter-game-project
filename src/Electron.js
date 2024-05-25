@@ -12,12 +12,12 @@ class Electron {
         this.electronElement.src = imageSrc;
 
         this.electronElement.style.position = "absolute";
-        this.electronElement.style.top = `${this.electron.positionX}px`;
-        this.electronElement.style.left = `${this.electron.positionY}px`;
-        this.electronElement.style.height = `${this.electron.height}px`;
-        this.electronElement.style.width = `${this.electron.width}px`;
+        this.electronElement.style.top = `${this.positionX}px`;
+        this.electronElement.style.left = `${this.positionY}px`;
+        this.electronElement.style.height = `${this.height}px`;
+        this.electronElement.style.width = `${this.width}px`;
         this.electronElement.style.backgroundColor = `blue`;
 
-        this.gameScreen.appendChild(this.electronElement);
+        gameScreen.appendChild(this.electronElement);
     }
 }

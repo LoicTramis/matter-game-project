@@ -1,9 +1,20 @@
-# 
-Kurzgesagt style
+# Kurzgesagt style game
+
+1. Generate random particle at the top of the canvas
+2. linear gradient for background
 
 ### Environment
 - floating electron moving fast
 - floating proton
+
+### Rules
+- Particle close to the ground drops on the ground and can be picked up
+- 
+### Playstyle
+- Pick up particle from the ground
+- Particle in the inventory can be shoot
+- Go in the laser cabin
+- Shoot particle to another particle to create new particle
 
 ### Challenge
 Lvl 1 create Hydrogen and helium
