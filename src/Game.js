@@ -5,6 +5,7 @@ class Game {
         this.canvasElement.height = canvasHeight
         this.electron = new Electron(this.canvasElement);
         this.draw = this.draw.bind(this)
+        this.particles = []
         // Put this requestAF at the end of draw() with a condition to avoid infinite loop & keep the clg
 
     }
@@ -27,7 +28,7 @@ class Game {
             ctx.beginPath()
             ctx.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25)
             ctx.lineTo(
-                this.toBorder(
+                this.#toBorder(
                     this.canvasElement.width / 2 - 2.5,
                     this.canvasElement.height - 25,
                     mouseX,
@@ -37,7 +38,7 @@ class Game {
                     this.canvasElement.width,
                     this.canvasElement.height
                 ).x,
-                this.toBorder(
+                this.#toBorder(
                     this.canvasElement.width / 2 - 2.5,
                     this.canvasElement.height - 25,
                     mouseX,
@@ -45,8 +46,10 @@ class Game {
                     0,
                     0,
                     this.canvasElement.width,
-                    this.canvasElement.height).y
+                    this.canvasElement.height
+                ).y
             )
+            // ctx.lineTo(mouseX, mouseY)
             ctx.closePath()
             ctx.strokeStyle = "red"
             ctx.stroke()
@@ -54,8 +57,19 @@ class Game {
         }
     }
 
-
-    toBorder(x1, y1, x2, y2, left, top, right, bottom) {
+    /**
+     * 
+     * @param {Position 1 at X} x1 
+     * @param {Position 1 at Y} y1 
+     * @param {Position 2 at X} x2 
+     * @param {Position 2 at Y} y2 
+     * @param {Position of left borber} left 
+     * @param {Position of top borber} top 
+     * @param {Position of right borber} right 
+     * @param {Position of bottom borber} bottom 
+     * @returns Position of line going through P1 and P2 in the border
+     */
+    #toBorder(x1, y1, x2, y2, left, top, right, bottom) {
         let dx, dy, py, vx, vy;
         vx = x2 - x1;
         vy = y2 - y1;
@@ -73,5 +87,14 @@ class Game {
             }
         }
         return { x: dx, y: dy }
+    }
+
+    generateParticles() {
+
+    }
+
+    drawParticles() {
+
+
     }
 }
