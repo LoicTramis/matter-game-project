@@ -1,5 +1,6 @@
-class Electron {
+class Electron extends Particle {
     constructor(gameScreen, imageSrc) {
+        super()
         this.height = 10;
         this.width = 10;
         this.positionX = 20;
@@ -18,6 +19,6 @@ class Electron {
         this.electronElement.style.width = `${this.width}px`;
         this.electronElement.style.backgroundColor = `blue`;
 
-        gameScreen.appendChild(this.electronElement);
+        // gameScreen.appendChild(this.electronElement);
     }
 }

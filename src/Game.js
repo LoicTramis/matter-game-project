@@ -3,6 +3,7 @@ class Game {
         this.canvasElement = canvasElement
         this.canvasElement.width = canvasWidth
         this.canvasElement.height = canvasHeight
+        this.ctx = this.canvasElement.getContext("2d")
         this.electron = new Electron(this.canvasElement);
         this.draw = this.draw.bind(this)
         this.particles = []
@@ -12,22 +13,22 @@ class Game {
 
     draw(mouseX, mouseY) {
         if (this.canvasElement.getContext) {
-            const ctx = this.canvasElement.getContext("2d")
-            ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+            this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 
             // Place the shooter
             const shooter = new Path2D();
             shooter.rect(this.canvasElement.width / 2 - 10, this.canvasElement.height - 30, 20, 20)
-            ctx.fillStyle = "darkblue"
-            ctx.fill(shooter)
+            this.ctx.fillStyle = "darkblue"
+            this.ctx.fill(shooter)
+
             const gun = new Path2D();
             gun.rect(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, 5, 5)
-            ctx.fillStyle = "red"
-            ctx.fill(gun)
+            this.ctx.fillStyle = "red"
+            this.ctx.fill(gun)
 
-            ctx.beginPath()
-            ctx.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25)
-            ctx.lineTo(
+            this.ctx.beginPath()
+            this.ctx.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25)
+            this.ctx.lineTo(
                 this.#toBorder(
                     this.canvasElement.width / 2 - 2.5,
                     this.canvasElement.height - 25,
@@ -50,9 +51,10 @@ class Game {
                 ).y
             )
             // ctx.lineTo(mouseX, mouseY)
-            ctx.closePath()
-            ctx.strokeStyle = "red"
-            ctx.stroke()
+            this.ctx.closePath()
+            this.ctx.strokeStyle = "red"
+            this.ctx.stroke()
+            this.drawParticles()
 
         }
     }
@@ -90,11 +92,20 @@ class Game {
     }
 
     generateParticles() {
-
+        for (let index = 0; index < 20; index++) {
+            let randomParticle = Math.random() > 0.5 ? new Proton() : new Electron()
+            this.particles.push(randomParticle)
+        }
     }
 
     drawParticles() {
-
+        this.particles.forEach(particle => {
+            this.ctx.beginPath();
+            this.ctx.arc(100, 100, 2, 0, Math.PI * 2, true);
+            this.ctx.closePath();
+            this.ctx.fillStyle = "blue"; // particle.color
+            this.ctx.fill();
+        })
 
     }
 }
