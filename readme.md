@@ -15,7 +15,7 @@
 - 10% of electron combining with proton to make Neutron
 - Neutron bonds to Proton
 - Electron bonds to Proton (?+ Neutron)
-
+- Electron fusions to bound
 
 ### Playstyle
 - Pick up particle from the ground
@@ -24,6 +24,9 @@
 - Shoot particle to another particle to create new particle
 
 ### Challenge
+
+Take and create particle before everything turn to neutron
+
 Lvl 1 create Hydrogen (1e + 1p) and helium (2e + 2n + 2p)
 Lvl 2 create Helium, boron, Lithium
 Lvl 3 Carbon, Oxygen new item unlock (particle accelerator gun)
