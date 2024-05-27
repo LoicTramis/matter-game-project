@@ -1,31 +1,33 @@
 window.onload = function () {
+    const canvasElement = document.getElementById("game");
+    const ctx = canvasElement.getContext("2d");
+    const canvasWidth = (window.innerWidth * 70) / 100;
+    const canvasHeight = (window.innerHeight * 80) / 100;
+    const game = new Game(canvasElement, canvasWidth, canvasHeight);
+    let raf, mouseX, mouseY;
 
-    const canvasElement = document.getElementById("game")
-    const canvasWidth = window.innerWidth * 70 / 100
-    const canvasHeight = window.innerHeight * 80 / 100
-    const game = new Game(canvasElement, canvasWidth, canvasHeight)
-    let raf
-    game.generateParticles();
-    console.log(game.particles)
-
-
-    // Generate snow of electron
-    game.canvasElement.addEventListener("mousemove", (e) => {
+    function mouseMove(e) {
         const rect = game.canvasElement.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left
-        const mouseY = e.clientY;
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY;
+        // raf = window.requestAnimationFrame(animate);
+    }
+    game.canvasElement.addEventListener("mousemove", mouseMove);
+    game.canvasElement.addEventListener("click", () => console.log(game.particles));
 
-        raf = window.requestAnimationFrame(() => {
-            game.draw(mouseX, mouseY)
-        });
+    game.generateParticles();
 
-    })
-    game.canvasElement.addEventListener("click", (e) => {
-        console.log("click")
-    })
+    animate();
+    function animate() {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        game.moveParticles();
+        game.drawParticles();
+        game.draw(mouseX, mouseY);
+        raf = requestAnimationFrame(animate);
+    }
+    // raf = window.requestAnimationFrame(animate);
 
-    game.canvasElement.addEventListener("mouseout", (e) => {
+    /* game.canvasElement.addEventListener("mouseout", (e) => {
         window.cancelAnimationFrame(raf);
-
-    })
+    }); */
 };

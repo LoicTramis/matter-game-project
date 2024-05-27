@@ -9,12 +9,12 @@
 
 ### Rules
 - Particle close to the ground drops on the ground and can be picked up
-- 
+- Single Proton meet single Electron create a Neutron
 ### Playstyle
 - Pick up particle from the ground
 - Particle in the inventory can be shoot
 - Go in the laser cabin
-- Shoot particle to another particle to create new particle
+- Shoot partiùcle to another particle to create new particle
 
 ### Challenge
 Lvl 1 create Hydrogen and helium
@@ -29,3 +29,6 @@ Lvl 4 create Water
 - particle accelerator gun (can create neutron)
 
 Guns have a sniper laser
+
+séparation
+affichage de certain Path avant le clear? ctx.save()

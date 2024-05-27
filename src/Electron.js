@@ -1,10 +1,9 @@
 class Electron extends Particle {
-    constructor(gameScreen, imageSrc) {
-        super()
+    constructor(x, y, color, imageSrc) {
+        // x, y, life, angle, speed, size, color
+        super(x, y, null, null, null, null, color);
         this.height = 10;
         this.width = 10;
-        this.positionX = 20;
-        this.positionY = 80;
 
         this.charge = -1;
         this.mass = 0;
@@ -12,9 +11,6 @@ class Electron extends Particle {
         this.electronElement = document.createElement("div");
         this.electronElement.src = imageSrc;
 
-        this.electronElement.style.position = "absolute";
-        this.electronElement.style.top = `${this.positionX}px`;
-        this.electronElement.style.left = `${this.positionY}px`;
         this.electronElement.style.height = `${this.height}px`;
         this.electronElement.style.width = `${this.width}px`;
         this.electronElement.style.backgroundColor = `blue`;
