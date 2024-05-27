@@ -4,25 +4,24 @@ class Game {
         this.canvasElement.width = canvasWidth;
         this.canvasElement.height = canvasHeight;
         this.ctx = this.canvasElement.getContext("2d");
-        this.draw = this.draw.bind(this);
-        this.moveParticles = this.moveParticles.bind(this);
         this.particles = [];
+        this.isGravityGun = false;
+
         // Put this requestAF at the end of draw() with a condition to avoid infinite loop & keep the clg
     }
 
-    draw(mouseX, mouseY) {
+    drawPlayer(player) {
+        const path = new Path2D();
+        path.rect(player.x, player.y, 20, 20);
+        this.ctx.fillStyle = player.color;
+        this.ctx.fill(path);
+    }
+    drawLaser(mouseX, mouseY) {
         if (this.canvasElement.getContext) {
-            this.ctx.restore();
-
-            // Place the shooter
-            const shooter = new Path2D();
-            shooter.rect(this.canvasElement.width / 2 - 10, this.canvasElement.height - 30, 20, 20);
-            this.ctx.fillStyle = "darkblue";
-            this.ctx.fill(shooter);
-
+            // Laser
             const gun = new Path2D();
             gun.rect(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, 5, 5);
-            this.ctx.fillStyle = "red";
+            this.isGravityGun ? (this.ctx.fillStyle = "purple") : (this.ctx.fillStyle = "red");
             this.ctx.fill(gun);
 
             this.ctx.beginPath();
@@ -31,12 +30,9 @@ class Game {
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).x,
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).y
             );
-            // ctx.lineTo(mouseX, mouseY)
             this.ctx.closePath();
-            this.ctx.strokeStyle = "red";
+            this.isGravityGun ? (this.ctx.strokeStyle = "purple") : (this.ctx.strokeStyle = "red");
             this.ctx.stroke();
-            this.ctx.save();
-            // this.drawParticles();
         }
     }
 
@@ -104,6 +100,16 @@ class Game {
         this.particles.forEach((particle) => {
             particle.moveAround(this.canvasElement.width, this.canvasElement.height);
         });
-        this.particles = this.particles.filter((particle) => !particle.isGrounded);
     }
+
+    /* repelParticles() {
+        this.particles.forEach((particle) => {
+            for (let index = 0; index < this.particles.length; index++) {
+                if (particle === this.particles[index]) {
+                    continue;
+                }
+                particle.repel(this.particles[index]);
+            }
+        });
+    } */
 }

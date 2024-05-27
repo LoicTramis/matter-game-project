@@ -9,7 +9,6 @@ section {
     width: 100vw;
     background-color: gray;
     display: flex;
-
 }
 #status {
     position: relative;
@@ -20,7 +19,7 @@ section {
 #game {
     position: relative;
     width: 70vw;
-    background-color: whitesmoke;
+    background-color: #38056b;
     border: 1px solid black;
 }
 

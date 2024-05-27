@@ -5,49 +5,62 @@ class Particle {
         this.x = x;
         this.y = y;
         this.isGrounded = false;
+        this.hasChanged = false;
 
         let angleInRadians = (angle * Math.PI) / 180;
-        this.velocityX = speed * Math.cos(angleInRadians);
-        this.velocityY = -speed * Math.sin(angleInRadians);
+        this.vx = 1;
+        this.vy = 1;
 
-        this.originalLife = this.life;
         this.color = color;
         this.originalSize = size;
         this.alpha = 1;
     }
 
-    // ? Try with Particle.prototype.update = function(dt) instead
-    update(dt) {
-        this.life -= dt;
-
-        if (this.life > 0) {
-            this.x += this.velocityX * dt;
-            this.y += this.velocityY * dt;
-        }
-    }
     moveAround(width, height) {
-        if (this.x < 10) {
-            this.x += 2;
-        }
-        if (this.y < 10) {
-            this.x = this.x;
-            this.y += 2;
-        }
-        if (this.x > width) {
-            this.x -= 1;
-        }
-        if (this.y < (height * 2) / 5) {
-            this.x += Math.random() > 0.5 ? 1 : -1;
-            this.y += Math.random() > 0.475 ? 1 : -1;
-        } else {
-            this.x = this.x;
-            this.y *= 1.02;
-        }
-        if (this.y > height) {
-            this.x = this.x;
-            this.y = height - 10;
-            this.isGrounded = true;
+        /* if (this.hasChanged) {
+            this.drop();
+        } */
+        if (!this.hasChanged) {
+            if (this.x < 10) {
+                this.x += this.vx;
+            }
+            if (this.y < 10) {
+                this.x = this.x;
+                this.y += this.vy;
+            }
+            if (this.x > width) {
+                this.x -= this.vx;
+            }
+            if (this.y < (height * 2) / 5) {
+                this.x += Math.random() > 0.5 ? this.vx : -this.vx;
+                this.y += Math.random() > 0.5 ? this.vy : -this.vy;
+            } else {
+                this.y -= this.vy;
+            }
+            if (this.y > height) {
+                this.y = height - 10;
+                this.isGrounded = true;
+            }
         }
     }
-    repel() {}
+    // ! GET THAT SHIT WORKING
+    /* repel(particle) {
+        let dx = this.x - particle.x;
+        let dy = this.y - particle.y;
+        let distance = Math.hypot(dx, dy);
+        // If 2 particles are really close
+        if (distance < 20) {
+            this.x += this.vx * -1;
+            this.y += this.vy * -1;
+            if (distance < 10) {
+                this.color = "red";
+                console.log("something's not right");
+            }
+            return true;
+        }
+        return false;
+    } */
+    drop() {
+        this.y *= 1.02;
+    }
 }
