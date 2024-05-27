@@ -4,6 +4,7 @@ class Player {
         this.y = y;
         this.speed = speed;
         this.color = color;
+        this.particles = [];
     }
 
     move(left, right) {
@@ -13,5 +14,13 @@ class Player {
         if (right) {
             this.x += this.speed;
         }
+    }
+
+    pickParticle(particle) {
+        this.particles.push();
+    }
+
+    throwParticle() {
+        this.particles.pop();
     }
 }

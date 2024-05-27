@@ -6,6 +6,7 @@ class Game {
         this.ctx = this.canvasElement.getContext("2d");
         this.particles = [];
         this.isGravityGun = false;
+        this.laser;
 
         // Put this requestAF at the end of draw() with a condition to avoid infinite loop & keep the clg
     }
@@ -16,24 +17,78 @@ class Game {
         this.ctx.fillStyle = player.color;
         this.ctx.fill(path);
     }
+
+    drawParticles() {
+        this.particles.forEach((particle) => {
+            this.ctx.beginPath();
+            this.ctx.arc(particle.x, particle.y, 5, 0, Math.PI * 2, true);
+            this.ctx.closePath();
+            this.ctx.fillStyle = particle.color; // particle.color
+            this.ctx.fill();
+            this.ctx.save();
+        });
+    }
+
     drawLaser(mouseX, mouseY) {
         if (this.canvasElement.getContext) {
-            // Laser
+            // Gun
             const gun = new Path2D();
             gun.rect(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, 5, 5);
             this.isGravityGun ? (this.ctx.fillStyle = "purple") : (this.ctx.fillStyle = "red");
             this.ctx.fill(gun);
+            this.isGravityGun ? (this.ctx.lineWidth = 10) : (this.ctx.lineWidth = 10);
 
-            this.ctx.beginPath();
-            this.ctx.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
-            this.ctx.lineTo(
+            this.laser = new Path2D();
+            this.laser.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
+            // Laser
+            this.laser.lineTo(
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).x,
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).y
             );
-            this.ctx.closePath();
             this.isGravityGun ? (this.ctx.strokeStyle = "purple") : (this.ctx.strokeStyle = "red");
-            this.ctx.stroke();
+            this.ctx.stroke(this.laser);
+            // console.log(this.ctx.isPointInStroke(laser, this.particles[0].x, this.particles[0].y));
         }
+    }
+
+    generateParticles() {
+        for (let index = 0; index < 20; index++) {
+            this.particles.push(this.#randomParticle());
+        }
+    }
+
+    // Remove particles dropped on the ground from this.particles
+    // Create new particle at the place of the old one
+    // Add dropped particles to a new array
+    moveParticles() {
+        this.particles.forEach((particle) => {
+            particle.moveAround(this.canvasElement.width, this.canvasElement.height);
+        });
+    }
+
+    shootAtParticle() {
+        // Gravity gun make particle drop
+        this.particles.forEach((particle) => {
+            if (this.ctx.isPointInStroke(this.laser, particle.x, particle.y)) {
+                if (this.isGravityGun) {
+                    particle.drop();
+                    // gravityGun.cooldown()
+                } else {
+                    particle.combine();
+                }
+            }
+        });
+        // Particle gun make particle combine
+    }
+    repelParticles() {
+        this.particles.forEach((particle) => {
+            for (let index = 0; index < this.particles.length; index++) {
+                if (particle === this.particles[index]) {
+                    continue;
+                }
+                particle.repel(this.particles[index]);
+            }
+        });
     }
 
     /**
@@ -76,40 +131,4 @@ class Game {
         let randomY = 10 + Math.random() * (this.canvasElement.height - this.canvasElement.height * (3 / 5));
         return Math.random() > 0.5 ? new Proton(randomX, randomY, "orange") : new Electron(randomX, randomY, "blue");
     }
-    generateParticles() {
-        for (let index = 0; index < 20; index++) {
-            this.particles.push(this.#randomParticle());
-        }
-    }
-
-    drawParticles() {
-        this.particles.forEach((particle) => {
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2, true);
-            this.ctx.closePath();
-            this.ctx.fillStyle = particle.color; // particle.color
-            this.ctx.fill();
-            this.ctx.save();
-        });
-    }
-
-    // Remove particles dropped on the ground from this.particles
-    // Create new particle at the place of the old one
-    // Add dropped particles to a new array
-    moveParticles() {
-        this.particles.forEach((particle) => {
-            particle.moveAround(this.canvasElement.width, this.canvasElement.height);
-        });
-    }
-
-    /* repelParticles() {
-        this.particles.forEach((particle) => {
-            for (let index = 0; index < this.particles.length; index++) {
-                if (particle === this.particles[index]) {
-                    continue;
-                }
-                particle.repel(this.particles[index]);
-            }
-        });
-    } */
 }

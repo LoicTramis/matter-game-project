@@ -32,8 +32,8 @@ Lvl 4 create Water
 
 ### Equipment
 
-- gravity gun
-- particle accelerator gun (can create neutron)
+- gravity gun has 2s cd
+- particle accelerator gun (can create neutron) has 5s cd
 
 Guns have a sniper laser
 

@@ -19,6 +19,10 @@ window.onload = function () {
         // raf = window.requestAnimationFrame(animate);
     }
 
+    function captureParticle() {
+        game.shootAtParticle();
+    }
+
     function keyPress(e) {
         if (e.type === "keydown") {
             e.keyCode === 37 ? player.move(true, false) : null;
@@ -32,7 +36,7 @@ window.onload = function () {
     }
 
     game.canvasElement.addEventListener("mousemove", mouseMove);
-    game.canvasElement.addEventListener("click", () => console.log(game.particles));
+    game.canvasElement.addEventListener("click", captureParticle);
     game.canvasElement.addEventListener("keydown", keyPress);
     game.canvasElement.addEventListener("keyup", keyPress);
 
@@ -45,6 +49,7 @@ window.onload = function () {
         game.drawParticles();
         game.drawLaser(mouseX, mouseY);
         game.drawPlayer(player);
+        game.repelParticles();
         raf = requestAnimationFrame(animate);
     }
     // raf = window.requestAnimationFrame(animate);

@@ -5,7 +5,8 @@ class Particle {
         this.x = x;
         this.y = y;
         this.isGrounded = false;
-        this.hasChanged = false;
+        this.isCaptured = false;
+        this.hasChangedDir = false;
 
         let angleInRadians = (angle * Math.PI) / 180;
         this.vx = 1;
@@ -17,10 +18,9 @@ class Particle {
     }
 
     moveAround(width, height) {
-        /* if (this.hasChanged) {
-            this.drop();
-        } */
-        if (!this.hasChanged) {
+        if (this.isCaptured) {
+            this.y += this.vy * 6.8;
+        } else {
             if (this.x < 10) {
                 this.x += this.vx;
             }
@@ -37,21 +37,22 @@ class Particle {
             } else {
                 this.y -= this.vy;
             }
-            if (this.y > height) {
-                this.y = height - 10;
-                this.isGrounded = true;
-            }
+        }
+        if (this.y > height - 10) {
+            this.vy = 0;
+            this.y = height - 20;
+            this.isGrounded = true;
         }
     }
     // ! GET THAT SHIT WORKING
-    /* repel(particle) {
+    repel(particle) {
         let dx = this.x - particle.x;
         let dy = this.y - particle.y;
         let distance = Math.hypot(dx, dy);
         // If 2 particles are really close
         if (distance < 20) {
-            this.x += this.vx * -1;
-            this.y += this.vy * -1;
+            this.vx *= -1;
+            this.vy *= -1;
             if (distance < 10) {
                 this.color = "red";
                 console.log("something's not right");
@@ -59,8 +60,9 @@ class Particle {
             return true;
         }
         return false;
-    } */
-    drop() {
-        this.y *= 1.02;
     }
+    drop() {
+        this.isCaptured = true;
+    }
+    combine() {}
 }
