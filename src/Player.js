@@ -4,7 +4,8 @@ class Player {
         this.y = y;
         this.speed = speed;
         this.color = color;
-        this.inventory = [];
+        // this.particles = [];
+        this.particle = null;
     }
 
     move(left, right) {
@@ -17,20 +18,27 @@ class Player {
     }
 
     pickParticle(particle) {
-        if (this.inventory.length) {
+        /* if (this.inventory.length) {
             this.inventory.at(-1).isInShooter = false;
-        }
+        } 
         this.inventory.push(particle);
-        this.inventory.at(-1).isInShooter = true;
+        this.inventory.at(-1).isInShooter = true; */
+        this.particle = particle;
+        this.particle.isInShooter = true;
     }
 
-    throwParticle() {
-        this.inventory.pop()?.throw();
+    throwParticle(angle) {
+        if (this.particle === null) {
+            return;
+        }
+        this.particle.throw(angle);
+        this.particle = null;
+        /*this.inventory.pop()?.throw();
         if (this.inventory.length) {
             this.inventory.at(-1).isInShooter = true;
-        }
+        } */
     }
-    getLastParticle() {
-        return this.inventory.at(-1);
+    getParticle() {
+        return this.particle;
     }
 }

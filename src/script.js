@@ -15,13 +15,12 @@ window.onload = function () {
     const pressedKeys = {
         ArrowLeft: false,
         ArrowRight: false,
-        Click: false,
     };
 
     const game = new Game(canvasElement, canvasWidth, canvasHeight);
 
     const player = new Player(playerPosition.x, playerPosition.y, 5, "green");
-    let raf, mouseX, mouseY;
+    let mouseX, mouseY;
 
     /* === FOCUS CANVAS === */
     canvasElement.setAttribute("tabindex", 1);
@@ -30,11 +29,11 @@ window.onload = function () {
     function displayInventory() {
         inventoryElement.children.length ? inventoryElement.firstChild.remove() : null;
         const inventoryList = document.createElement("ul");
-        player.inventory.forEach((particle) => {
-            const inventoryItem = document.createElement("li");
-            inventoryItem.textContent = particle.constructor.name;
-            inventoryList.appendChild(inventoryItem);
-        });
+        const inventoryItem = document.createElement("li");
+        if (player.particle) {
+            inventoryItem.textContent = player.particle.constructor.name;
+        }
+        inventoryList.appendChild(inventoryItem);
         inventoryElement.appendChild(inventoryList);
     }
 
@@ -45,25 +44,26 @@ window.onload = function () {
         // raf = window.requestAnimationFrame(animate);
     }
 
-    function pullTrigger() {
-        pressedKeys.Click = true;
-    }
-
     function keyPress(e) {
         if (e.type === "keydown") {
-            e.keyCode === 37 ? (pressedKeys.ArrowLeft = true) : null;
-            e.keyCode === 39 ? (pressedKeys.ArrowRight = true) : null;
-            e.keyCode === 32 ? (game.isGravityGun = !game.isGravityGun) : null;
+            e.key === "ArrowLeft" ? (pressedKeys.ArrowLeft = true) : null;
+            e.key === "ArrowRight" ? (pressedKeys.ArrowRight = true) : null;
+            e.key === " " ? (game.isGravityGun = !game.isGravityGun) : null;
         }
         if (e.type === "keyup") {
-            e.keyCode === 37 ? (pressedKeys.ArrowLeft = false) : null;
-            e.keyCode === 39 ? (pressedKeys.ArrowRight = false) : null;
+            e.key === "ArrowLeft" ? (pressedKeys.ArrowLeft = false) : null;
+            e.key === "ArrowRight" ? (pressedKeys.ArrowRight = false) : null;
+        }
+        if (e.type === "click") {
+            game.shootLaser(player, mouseX, mouseY);
+            console.log(game.particles);
         }
         displayInventory();
     }
 
     game.canvasElement.addEventListener("mousemove", mouseMove);
-    game.canvasElement.addEventListener("click", pullTrigger);
+
+    game.canvasElement.addEventListener("click", keyPress);
     game.canvasElement.addEventListener("keydown", keyPress);
     game.canvasElement.addEventListener("keyup", keyPress);
 
@@ -78,21 +78,14 @@ window.onload = function () {
         game.drawLaser(mouseX, mouseY, player);
         game.drawPlayer(player);
 
-        // Animation logic
+        // Particles animation
         game.moveParticles();
         game.pickParticles(player);
 
-        game.shootLaser(player, pressedKeys.Click);
-        pressedKeys.Click = false;
         // Player animation
         player.move(pressedKeys.ArrowLeft, pressedKeys.ArrowRight);
 
         // ? game.repelParticles();
-        raf = requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
     }
-    // raf = window.requestAnimationFrame(animate);
-
-    /* game.canvasElement.addEventListener("mouseout", (e) => {
-        window.cancelAnimationFrame(raf);
-    }); */
 };

@@ -8,6 +8,7 @@ class Particle {
         this.isCaptured = false;
         this.isInInventory = false;
         this.isInShooter = false;
+        this.isThrown = false;
         this.hasChangedDir = false;
 
         let angleInRadians = (angle * Math.PI) / 180;
@@ -23,20 +24,23 @@ class Particle {
         if (this.isCaptured) {
             this.y *= 1.025;
         } else {
-            if (this.x < 10) {
+            if (this.x < 10 && !this.isThrown) {
                 this.x += this.vx;
             }
-            if (this.y < 10) {
+            if (this.y < 10 && !this.isThrown) {
                 this.x = this.x;
                 this.y += this.vy;
             }
-            if (this.x > width) {
+            if (this.x > width && !this.isThrown) {
                 this.x -= this.vx;
             }
-            if (this.y < (height * 2) / 5) {
+            if (this.y < (height * 2) / 5 && !this.isThrown) {
+                this.vx = 1;
+                this.vy = 1;
                 this.x += Math.random() > 0.5 ? this.vx : -this.vx;
                 this.y += Math.random() > 0.5 ? this.vy : -this.vy;
             } else {
+                this.x += this.vx;
                 this.y -= this.vy;
             }
         }
@@ -63,8 +67,12 @@ class Particle {
         }
         return false;
     } */
-    throw() {
-        this.x -= 3;
+    throw(angle) {
+        this.vx = 3 * Math.cos((angle * Math.PI) / 180);
+        this.vy = -3 * Math.sin((angle * Math.PI) / 180);
+        console.log(this.vx);
+        console.log(this.vy);
+        this.isThrown = true;
         this.isCaptured = false;
         this.isGrounded = false;
         this.isInInventory = false;

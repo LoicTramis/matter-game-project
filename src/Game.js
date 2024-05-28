@@ -47,12 +47,11 @@ class Game {
                 this.ctx.strokeStyle = "purple";
             } else {
                 this.ctx.strokeStyle = "red";
-                if (player.inventory.length) {
-                    this.#drawParticle(player.getLastParticle(), this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
+                if (player.particle) {
+                    this.#drawParticle(player.getParticle(), this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
                 }
             }
             this.ctx.stroke(this.laser);
-            // console.log(this.ctx.isPointInStroke(laser, this.particles[0].x, this.particles[0].y));
         }
     }
 
@@ -69,24 +68,27 @@ class Game {
         this.particles.forEach((particle) => {
             particle.moveAround(this.canvasElement.width, this.canvasElement.height);
         });
+        this.particles = this.particles.filter((particle) => particle.y > -100);
     }
 
-    shootLaser(player, isClicked) {
+    shootLaser(player, mouseX, mouseY) {
         // Gravity gun make particle drop
-        if (isClicked) {
-            this.particles.forEach((particle) => {
-                if (this.isGravityGun) {
-                    if (this.ctx.isPointInStroke(this.laser, particle.x, particle.y)) {
-                        particle.drop();
-                        // gravityGun.cooldown()
-                    }
-                } else if (particle.isInShooter) {
-                    player.throwParticle();
-                    console.log("shooting particle");
+        this.particles.forEach((particle) => {
+            if (this.isGravityGun) {
+                if (this.ctx.isPointInStroke(this.laser, particle.x, particle.y)) {
+                    particle.drop();
+                    // gravityGun.cooldown()
                 }
-            });
-        }
+            } else if (particle.isInShooter) {
+                particle.x = this.canvasElement.width / 2 - 2.5;
+                particle.y = this.canvasElement.height - 25;
+                const angle = (Math.atan2(mouseY - this.canvasElement.height - 25, mouseX - this.canvasElement.width / 2 - 2.5) * 180) / Math.PI;
+                console.log(angle);
+                player.throwParticle(angle);
+            }
+        });
     }
+
     pickParticles(player) {
         this.particles.forEach((particle) => {
             if (!particle.isInInventory && particle.isGrounded && this.ctx.isPointInPath(this.playerPath, particle.x, particle.y)) {
