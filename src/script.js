@@ -81,6 +81,7 @@ window.onload = function () {
         // Particles animation
         game.moveParticles();
         game.pickParticles(player);
+        game.combineParticles();
 
         // Player animation
         player.move(pressedKeys.ArrowLeft, pressedKeys.ArrowRight);

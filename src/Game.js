@@ -98,6 +98,27 @@ class Game {
         });
     }
 
+    combineParticles() {
+        particles: for (let i = 0; i < this.particles.length; i++) {
+            const particle1 = this.particles[i];
+            for (let j = 0; j < this.particles.length; j++) {
+                const particle2 = this.particles[j];
+                if (particle1 !== particle2 && (particle1.isThrown || particle2.isThrown) && particle1.isParticleClose(particle2)) {
+                    if (particle1.constructor.name === "Electron" && particle2.constructor.name === "Proton") {
+                        // combien p1 to p2
+                        console.log("Elctron close to proton");
+                        break particles;
+                    }
+                    if (particle1.constructor.name === "Proton" && particle2.constructor.name === "Electron") {
+                        // combien p2 to p1
+                        console.log("Elctron close to proton");
+                        break particles;
+                    }
+                }
+            }
+        }
+    }
+
     repelParticles() {
         this.particles.forEach((particle) => {
             for (let index = 0; index < this.particles.length; index++) {

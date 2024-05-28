@@ -1,4 +1,58 @@
 // http://buildnewgames.com/particle-systems/
+// https://developer.mozilla.org/en-US/play
+/*
+const canvas = document.getElementById("cw");
+const context = canvas.getContext("2d");
+context.globalAlpha = 0.5;
+
+
+
+let particle = new Particle(innerWidth/3, innerHeight/3, 2, "#ff0000", 0.1);
+
+setSize();
+anim();
+
+function setSize() {
+  canvas.height = innerHeight;
+  canvas.width = innerWidth;
+}
+
+function Particle(x, y, particleTrailWidth, strokeColor, rotateSpeed) {
+  this.x = x;
+  this.y = y;
+  this.particleTrailWidth = particleTrailWidth;
+  this.strokeColor = strokeColor;
+  this.theta =  Math.PI * 0.5;
+  this.rotateSpeed = rotateSpeed;
+  this.t = 50;
+
+  this.rotate = () => {
+    const ls = {
+      x: this.x,
+      y: this.y,
+    };
+    this.theta += this.rotateSpeed;
+    this.x = 255+Math.cos(this.theta) * this.t;
+    this.y = 255+Math.sin(this.theta) * this.t;
+    context.beginPath();
+    context.lineWidth = this.particleTrailWidth;
+    context.strokeStyle = this.strokeColor;
+    context.moveTo(ls.x, ls.y);
+    context.lineTo(this.x, this.y);
+    context.stroke();
+  };
+}
+
+function anim() {
+  requestAnimationFrame(anim);
+
+  context.fillStyle = "rgb(0 0 0 / 5%)";
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  particle.rotate();
+}
+
+*/
 
 class Particle {
     constructor(x, y, life, angle, speed, size, color) {
@@ -11,13 +65,13 @@ class Particle {
         this.isThrown = false;
         this.hasChangedDir = false;
 
-        let angleInRadians = (angle * Math.PI) / 180;
         this.vx = 1;
         this.vy = 1;
 
         this.color = color;
         this.originalSize = size;
-        this.alpha = 1;
+        this.theta = 0.2 * Math.PI * 2; // angle of rotation
+        this.alpha = 1; // transparency
     }
 
     moveAround(width, height) {
@@ -67,9 +121,17 @@ class Particle {
         }
         return false;
     } */
+
+    isParticleClose(particle) {
+        let dx = this.x - particle.x;
+        let dy = this.y - particle.y;
+        let distance = Math.hypot(dx, dy);
+
+        return distance < 20;
+    }
     throw(angle) {
         this.vx = 3 * Math.cos((angle * Math.PI) / 180);
-        this.vy = -3 * Math.sin((angle * Math.PI) / 180);
+        this.vy = -8 * Math.sin((angle * Math.PI) / 180);
         console.log(this.vx);
         console.log(this.vy);
         this.isThrown = true;
