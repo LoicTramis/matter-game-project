@@ -31,4 +31,14 @@ section {
 #stuff {
     background-color: gray;
     height: 20vh;
+    display: flex;
+    padding: 2rem 15vw;
+    ul {
+        display: flex;
+        gap: 2rem;
+
+        li {
+            list-style-type: none;
+        }
+    }
 }

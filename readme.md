@@ -22,6 +22,7 @@
 - Particle in the inventory can be shoot
 - Go in the laser cabin
 - Shoot particle to another particle to create new particle
+- Shoot proton at element to split them
 
 ### Challenge
 

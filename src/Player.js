@@ -4,7 +4,7 @@ class Player {
         this.y = y;
         this.speed = speed;
         this.color = color;
-        this.particles = [];
+        this.inventory = [];
     }
 
     move(left, right) {
@@ -17,10 +17,20 @@ class Player {
     }
 
     pickParticle(particle) {
-        this.particles.push();
+        if (this.inventory.length) {
+            this.inventory.at(-1).isInShooter = false;
+        }
+        this.inventory.push(particle);
+        this.inventory.at(-1).isInShooter = true;
     }
 
     throwParticle() {
-        this.particles.pop();
+        this.inventory.pop()?.throw();
+        if (this.inventory.length) {
+            this.inventory.at(-1).isInShooter = true;
+        }
+    }
+    getLastParticle() {
+        return this.inventory.at(-1);
     }
 }

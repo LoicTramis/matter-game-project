@@ -7,36 +7,34 @@ class Game {
         this.particles = [];
         this.isGravityGun = false;
         this.laser;
+        this.playerPath;
 
         // Put this requestAF at the end of draw() with a condition to avoid infinite loop & keep the clg
     }
 
     drawPlayer(player) {
-        const path = new Path2D();
-        path.rect(player.x, player.y, 20, 20);
+        this.playerPath = new Path2D();
+        this.playerPath.rect(player.x, player.y, 20, 20);
         this.ctx.fillStyle = player.color;
-        this.ctx.fill(path);
+        this.ctx.fill(this.playerPath);
     }
 
     drawParticles() {
         this.particles.forEach((particle) => {
-            this.ctx.beginPath();
-            this.ctx.arc(particle.x, particle.y, 5, 0, Math.PI * 2, true);
-            this.ctx.closePath();
-            this.ctx.fillStyle = particle.color; // particle.color
-            this.ctx.fill();
-            this.ctx.save();
+            if (!particle.isInInventory) {
+                this.#drawParticle(particle);
+            }
         });
     }
 
-    drawLaser(mouseX, mouseY) {
+    drawLaser(mouseX, mouseY, player) {
         if (this.canvasElement.getContext) {
             // Gun
             const gun = new Path2D();
             gun.rect(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, 5, 5);
             this.isGravityGun ? (this.ctx.fillStyle = "purple") : (this.ctx.fillStyle = "red");
             this.ctx.fill(gun);
-            this.isGravityGun ? (this.ctx.lineWidth = 10) : (this.ctx.lineWidth = 10);
+            this.isGravityGun ? (this.ctx.lineWidth = 15) : (this.ctx.lineWidth = 1);
 
             this.laser = new Path2D();
             this.laser.moveTo(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
@@ -45,7 +43,14 @@ class Game {
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).x,
                 this.#toBorder(this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25, mouseX, mouseY, 0, 0, this.canvasElement.width, this.canvasElement.height).y
             );
-            this.isGravityGun ? (this.ctx.strokeStyle = "purple") : (this.ctx.strokeStyle = "red");
+            if (this.isGravityGun) {
+                this.ctx.strokeStyle = "purple";
+            } else {
+                this.ctx.strokeStyle = "red";
+                if (player.inventory.length) {
+                    this.#drawParticle(player.getLastParticle(), this.canvasElement.width / 2 - 2.5, this.canvasElement.height - 25);
+                }
+            }
             this.ctx.stroke(this.laser);
             // console.log(this.ctx.isPointInStroke(laser, this.particles[0].x, this.particles[0].y));
         }
@@ -66,20 +71,31 @@ class Game {
         });
     }
 
-    shootAtParticle() {
+    shootLaser(player, isClicked) {
         // Gravity gun make particle drop
-        this.particles.forEach((particle) => {
-            if (this.ctx.isPointInStroke(this.laser, particle.x, particle.y)) {
+        if (isClicked) {
+            this.particles.forEach((particle) => {
                 if (this.isGravityGun) {
-                    particle.drop();
-                    // gravityGun.cooldown()
-                } else {
-                    particle.combine();
+                    if (this.ctx.isPointInStroke(this.laser, particle.x, particle.y)) {
+                        particle.drop();
+                        // gravityGun.cooldown()
+                    }
+                } else if (particle.isInShooter) {
+                    player.throwParticle();
+                    console.log("shooting particle");
                 }
+            });
+        }
+    }
+    pickParticles(player) {
+        this.particles.forEach((particle) => {
+            if (!particle.isInInventory && particle.isGrounded && this.ctx.isPointInPath(this.playerPath, particle.x, particle.y)) {
+                particle.isInInventory = true;
+                player.pickParticle(particle);
             }
         });
-        // Particle gun make particle combine
     }
+
     repelParticles() {
         this.particles.forEach((particle) => {
             for (let index = 0; index < this.particles.length; index++) {
@@ -130,5 +146,15 @@ class Game {
         let randomX = 10 + Math.random() * (this.canvasElement.width - 10);
         let randomY = 10 + Math.random() * (this.canvasElement.height - this.canvasElement.height * (3 / 5));
         return Math.random() > 0.5 ? new Proton(randomX, randomY, "orange") : new Electron(randomX, randomY, "blue");
+    }
+
+    #drawParticle(particle, x, y) {
+        let px = x ? x : particle.x;
+        let py = y ? y : particle.y;
+        this.ctx.beginPath();
+        this.ctx.arc(px, py, 5, 0, Math.PI * 2, true);
+        this.ctx.closePath();
+        this.ctx.fillStyle = particle.color; // particle.color
+        this.ctx.fill();
     }
 }

@@ -6,6 +6,8 @@ class Particle {
         this.y = y;
         this.isGrounded = false;
         this.isCaptured = false;
+        this.isInInventory = false;
+        this.isInShooter = false;
         this.hasChangedDir = false;
 
         let angleInRadians = (angle * Math.PI) / 180;
@@ -19,7 +21,7 @@ class Particle {
 
     moveAround(width, height) {
         if (this.isCaptured) {
-            this.y += this.vy * 6.8;
+            this.y *= 1.025;
         } else {
             if (this.x < 10) {
                 this.x += this.vx;
@@ -45,7 +47,7 @@ class Particle {
         }
     }
     // ! GET THAT SHIT WORKING
-    repel(particle) {
+    /* repel(particle) {
         let dx = this.x - particle.x;
         let dy = this.y - particle.y;
         let distance = Math.hypot(dx, dy);
@@ -60,6 +62,13 @@ class Particle {
             return true;
         }
         return false;
+    } */
+    throw() {
+        this.x -= 3;
+        this.isCaptured = false;
+        this.isGrounded = false;
+        this.isInInventory = false;
+        this.isInShooter = false;
     }
     drop() {
         this.isCaptured = true;
