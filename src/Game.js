@@ -75,6 +75,7 @@ class Game {
         this.ctx.drawImage(gravityGun, this.canvasElement.width / 2 - 20, this.canvasElement.height - 75, 38, 70);
         /* ---- LINES & COLORS ---- */
 
+        // Pretty laser
         for (let i = 0; i < this.laserColors.length; i++) {
           const element = this.laserColors[i];
           // Line 6
@@ -161,9 +162,6 @@ class Game {
     }
   }
 
-  // Remove particles dropped on the ground from this.particles
-  // Create new particle at the place of the old one
-  // Add dropped particles to a new array
   moveParticles() {
     this.particles.forEach((particle) => {
       particle.moveAround(this.canvasElement.width, this.canvasElement.height);

@@ -1,4 +1,18 @@
 window.onload = function () {
+  /* === BUTTON === */
+  const startButton = document.getElementById("start-button");
+  /* === SCREENS === */
+  const startScreen = document.getElementById("start-screen");
+  const gameScreen = document.getElementById("game-screen");
+
+  startButton.addEventListener("click", () => {
+    startScreen.style.display = "none";
+    gameScreen.style.display = "flex";
+    loadGame();
+  });
+};
+
+function loadGame() {
   const canvasElement = document.getElementById("game");
   const inventoryElement = document.getElementById("stuff");
   const ctx = canvasElement.getContext("2d");
@@ -95,4 +109,4 @@ window.onload = function () {
     // ? game.repelParticles();
     requestAnimationFrame(animate);
   }
-};
+}
