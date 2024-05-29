@@ -9,37 +9,28 @@
 
 ### Rules
 - Particle close to the ground drops on the ground and can be picked up
-- Newly created particle drop on the ground
-- Single Proton meet single Electron create a Neutron
-- Every particle repels each other
-- 10% of electron combining with proton to make Neutron
-- Neutron bonds to Proton
-- Electron bonds to Proton (?+ Neutron)
-- Electron fusions to bound
+- Newly created particle drop into the ground immediately
+- Instable particle decay
+  - cations loose electron
+  - anions steal electron
+  - isotrops eject neutron
 
 ### Playstyle
 - Pick up particle from the ground
 - Particle in the inventory can be shoot
 - Go in the laser cabin
 - Shoot particle to another particle to create new particle
-- Shoot proton at element to split them
 
 ### Challenge
-
-Take and create particle before everything turn to neutron
-
-Lvl 1 create Hydrogen (1e + 1p) and helium (2e + 2n + 2p)
+Lvl 1 create Hydrogen and helium
 Lvl 2 create Helium, boron, Lithium
-Lvl 3 Carbon, Oxygen new item unlock (particle accelerator gun)
+Lvl 3 new item unlock (particle accelerator gun)
 Lvl 4 create Water
 
 
 ### Equipment
 
-- gravity gun has 2s cd
-- particle accelerator gun (can create neutron) has 5s cd
+- gravity gun
+- particle accelerator gun (can create neutron)
 
 Guns have a sniper laser
-
-séparation
-affichage de certain Path avant le clear? ctx.save()

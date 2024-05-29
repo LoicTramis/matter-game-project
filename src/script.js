@@ -56,7 +56,7 @@ window.onload = function () {
         }
         if (e.type === "click") {
             game.shootLaser(player, mouseX, mouseY);
-            console.log(game.particles);
+            // console.log(game.particles);
         }
         displayInventory();
     }

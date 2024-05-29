@@ -55,57 +55,63 @@ function anim() {
 */
 
 class Particle {
-    constructor(x, y, life, angle, speed, size, color) {
-        this.x = x;
-        this.y = y;
-        this.isGrounded = false;
-        this.isCaptured = false;
-        this.isInInventory = false;
-        this.isInShooter = false;
-        this.isThrown = false;
-        this.hasChangedDir = false;
+  constructor(x, y, life, angle, speed, size, color) {
+    this.x = x;
+    this.y = y;
+    this.isGrounded = false;
+    this.isCaptured = false;
+    this.isInInventory = false;
+    this.isInShooter = false;
+    this.isThrown = false;
+    this.isRotating = false;
+    this.hasChangedDir = false;
 
+    this.vx = 1;
+    this.vy = 1;
+
+    this.color = color;
+    this.originalSize = size;
+    this.theta = Math.PI * 20; // angle of rotation
+    this.t = 20; // radius
+    this.alpha = 1; // transparency
+    this.ls = {
+      x: this.x,
+      y: this.y,
+    };
+  }
+
+  moveAround(width, height) {
+    if (this.isCaptured) {
+      this.y *= 1.025;
+    } else {
+      if (this.x < 10 && !this.isThrown) {
+        this.x += this.vx;
+      }
+      if (this.y < 10 && !this.isThrown) {
+        this.x = this.x;
+        this.y += this.vy;
+      }
+      if (this.x > width && !this.isThrown) {
+        this.x -= this.vx;
+      }
+      if (this.y < (height * 2) / 5 && !this.isThrown) {
         this.vx = 1;
         this.vy = 1;
-
-        this.color = color;
-        this.originalSize = size;
-        this.theta = 0.2 * Math.PI * 2; // angle of rotation
-        this.alpha = 1; // transparency
+        this.x += Math.random() > 0.5 ? this.vx : -this.vx;
+        this.y += Math.random() > 0.5 ? this.vy : -this.vy;
+      } else {
+        this.x += this.vx;
+        this.y -= this.vy;
+      }
     }
-
-    moveAround(width, height) {
-        if (this.isCaptured) {
-            this.y *= 1.025;
-        } else {
-            if (this.x < 10 && !this.isThrown) {
-                this.x += this.vx;
-            }
-            if (this.y < 10 && !this.isThrown) {
-                this.x = this.x;
-                this.y += this.vy;
-            }
-            if (this.x > width && !this.isThrown) {
-                this.x -= this.vx;
-            }
-            if (this.y < (height * 2) / 5 && !this.isThrown) {
-                this.vx = 1;
-                this.vy = 1;
-                this.x += Math.random() > 0.5 ? this.vx : -this.vx;
-                this.y += Math.random() > 0.5 ? this.vy : -this.vy;
-            } else {
-                this.x += this.vx;
-                this.y -= this.vy;
-            }
-        }
-        if (this.y > height - 10) {
-            this.vy = 0;
-            this.y = height - 20;
-            this.isGrounded = true;
-        }
+    if (this.y > height - 10) {
+      this.vy = 0;
+      this.y = height - 20;
+      this.isGrounded = true;
     }
-    // ! GET THAT SHIT WORKING
-    /* repel(particle) {
+  }
+  // ! GET THAT SHIT WORKING
+  /* repel(particle) {
         let dx = this.x - particle.x;
         let dy = this.y - particle.y;
         let distance = Math.hypot(dx, dy);
@@ -122,26 +128,40 @@ class Particle {
         return false;
     } */
 
-    isParticleClose(particle) {
-        let dx = this.x - particle.x;
-        let dy = this.y - particle.y;
-        let distance = Math.hypot(dx, dy);
+  isParticleClose(particle) {
+    let dx = this.x - particle.x;
+    let dy = this.y - particle.y;
+    let distance = Math.hypot(dx, dy);
 
-        return distance < 20;
+    return distance < 50;
+  }
+  throw(angle) {
+    // ! angle problem with the coeff
+    // ? seems related to the size of the canvas width
+    this.vx = 10 * Math.cos((angle * Math.PI) / 180);
+    this.vy = -8 * Math.sin((angle * Math.PI) / 180);
+    // console.log(this.vx);
+    // console.log(this.vy);
+    this.isThrown = true;
+    this.isCaptured = false;
+    this.isGrounded = false;
+    this.isInInventory = false;
+    this.isInShooter = false;
+  }
+  drop() {
+    this.isCaptured = true;
+  }
+
+  combine(particle, px, py) {
+    if (particle.constructor.name === "Proton " && particle.isThrown) {
+      console.log("yeap proton here")
+      particle.vx = 0
+      particle.vy = 0
     }
-    throw(angle) {
-        this.vx = 3 * Math.cos((angle * Math.PI) / 180);
-        this.vy = -8 * Math.sin((angle * Math.PI) / 180);
-        console.log(this.vx);
-        console.log(this.vy);
-        this.isThrown = true;
-        this.isCaptured = false;
-        this.isGrounded = false;
-        this.isInInventory = false;
-        this.isInShooter = false;
-    }
-    drop() {
-        this.isCaptured = true;
-    }
-    combine() {}
+    this.theta += 0.1;
+
+    this.x = px + Math.cos(this.theta) * this.t;
+    this.y = py + Math.sin(this.theta) * this.t;
+    // this.isRotating = true; // ! prevent particle to rotate when executed 
+  }
 }
