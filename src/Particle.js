@@ -58,6 +58,8 @@ class Particle {
   constructor(x, y, life, angle, speed, size, color) {
     this.x = x;
     this.y = y;
+    this.vx = 1;
+    this.vy = 1;
     this.isGrounded = false;
     this.isCaptured = false;
     this.isInInventory = false;
@@ -66,8 +68,6 @@ class Particle {
     this.isRotating = false;
     this.hasChangedDir = false;
 
-    this.vx = 1;
-    this.vy = 1;
 
     this.color = color;
     this.originalSize = size;
@@ -152,16 +152,16 @@ class Particle {
     this.isCaptured = true;
   }
 
-  combine(particle, px, py) {
-    if (particle.constructor.name === "Proton " && particle.isThrown) {
+  combine(particle1, particle2) {
+    if (particle1.constructor.name === "Proton " && particle2.isThrown) {
       console.log("yeap proton here")
-      particle.vx = 0
-      particle.vy = 0
+      particle1.vx = 0
+      particle1.vy = 0
     }
     this.theta += 0.1;
 
-    this.x = px + Math.cos(this.theta) * this.t;
-    this.y = py + Math.sin(this.theta) * this.t;
+    this.x = particle2.x + Math.cos(this.theta) * this.t;
+    this.y = particle2.y + Math.sin(this.theta) * this.t;
     // this.isRotating = true; // ! prevent particle to rotate when executed 
   }
 }

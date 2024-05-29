@@ -3,33 +3,45 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    background: linear-gradient(#240142, #7e3f38);
+}
+body {
+    background-image:url("../assets/ground.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
 section {
     position: relative;
     height: 80vh;
     width: 100vw;
-    background-color: gray;
+    background-color: transparent;
     display: flex;
 }
 #status {
     position: relative;
     width: 15vw;
-    background-color: darkblue;
+    background-color: transparent;
 }
 
 #game {
     position: relative;
     width: 70vw;
-    background-color: #38056b;
-    border: 1px solid black;
+    background-color: transparent;
+}
+#game:focus {
+    border: none;
+    outline: none
 }
 
 #app {
     position: relative;
     width: 15vw;
-    background-color: darkcyan;
+    background-color: transparent;
 }
 #stuff {
-    background-color: gray;
+    background-color: transparent;
     height: 20vh;
     display: flex;
     padding: 2rem 15vw;

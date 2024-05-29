@@ -4,8 +4,9 @@
 2. linear gradient for background
 
 ### Environment
-- floating electron moving fast
-- floating proton
+- Sets of protons are generated for each level ()
+- Player has predefined sets of electron to throw
+- 
 
 ### Rules
 - Particle close to the ground drops on the ground and can be picked up
@@ -21,16 +22,24 @@
 - Go in the laser cabin
 - Shoot particle to another particle to create new particle
 
+### Gameplay
+- "<--" move player to the left
+- "-->" move player to the right
+- "space" switch between guns
+- mouse movement to aim with the guns
+- mouse click to trigger guns
+- move onto a particle to pick it up
+
 ### Challenge
-Lvl 1 create Hydrogen and helium
-Lvl 2 create Helium, boron, Lithium
-Lvl 3 new item unlock (particle accelerator gun)
+Lvl 1 create Hydrogen
+Lvl 2 create Helium, Boron, Lithium
+Lvl 3 new item unlock (particle accelerator gun) create ions and isotrops
 Lvl 4 create Water
 
 
 ### Equipment
 
 - gravity gun
-- particle accelerator gun (can create neutron)
+- particle accelerator (can create neutron)
 
 Guns have a sniper laser
