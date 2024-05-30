@@ -2,7 +2,7 @@
 
 _You arrived on Mars and need water to survive. Combine elementary particles to **create water** and thrive on this planet._
 
-<p style="font-size: 1.5rem; font-weight:bold;"><a src="https://loictramis.github.io/matter-game-project/"> PLAY HERE</a></p>
+<p style="font-size: 1.5rem; font-weight:bold;"><a href="https://loictramis.github.io/matter-game-project/">PLAY HERE</a></p>
 
 ### Environment
 - Sets of protons are generated for each level ()
