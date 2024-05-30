@@ -8,6 +8,8 @@ class Electron extends Particle {
         this.charge = -1;
         this.mass = 0;
 
+        this.hasProton = false;
+
         // gameScreen.appendChild(this.electronElement);
     }
 }

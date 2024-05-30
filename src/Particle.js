@@ -146,7 +146,6 @@ class Particle {
         this.isGrounded = false;
         this.isInInventory = false;
         this.isInShooter = false;
-        console.log(this.particle);
     }
 
     drop() {
@@ -154,9 +153,12 @@ class Particle {
     }
 
     combine(particle1, particle2) {
-        if (particle1.constructor.name === "Proton " && particle2.isThrown) {
+        if (particle2.constructor.name === "Proton" && particle1.isThrown && !particle1.hasAProton) {
             particle1.vx = 0;
             particle1.vy = 0;
+            particle2.electrons.push(particle1);
+            particle1.hasAProton = true;
+            particle1.isRotating = true;
         }
         this.theta += 0.1;
 

@@ -17,16 +17,19 @@ class Player {
         }
     }
 
-    pickParticle(particle) {
+    pickParticle(particle, level) {
         /* if (this.inventory.length) {
             this.inventory.at(-1).isInShooter = false;
         } 
         this.inventory.push(particle);
         this.inventory.at(-1).isInShooter = true; */
-        if (this.particle === null) {
+        console.log(particle);
+        if (particle?.electrons?.length === 1) {
+            console.log("victory");
+            level.won = true;
+        } else if (!particle?.isRotating) {
             this.particle = particle;
             this.particle.isInShooter = true;
-            console.log(this.particle);
         }
     }
 
@@ -35,8 +38,7 @@ class Player {
             return;
         }
         this.particle.throw(angle);
-        console.log(this.particle);
-        this.particle = null;
+        // this.particle = null;
         /*this.inventory.pop()?.throw();
         if (this.inventory.length) {
             this.inventory.at(-1).isInShooter = true;

@@ -1,5 +1,5 @@
 class Game {
-    constructor(canvasElement, canvasWidth, canvasHeight) {
+    constructor(canvasElement, canvasWidth, canvasHeight, level) {
         this.canvasElement = canvasElement;
         this.canvasElement.width = canvasWidth;
         this.canvasElement.height = canvasHeight;
@@ -34,6 +34,7 @@ class Game {
                 size: 8,
             },
         ];
+        this.level = level;
 
         // Put this requestAF at the end of draw() with a condition to avoid infinite loop & keep the clg
     }
@@ -166,7 +167,6 @@ class Game {
                     // gravityGun.cooldown()
                 }
             } else if (particle.isInShooter) {
-                console.log("in shooter");
                 particle.x = this.canvasElement.width / 2 - 2.5;
                 particle.y = this.canvasElement.height - 75;
                 const angle = (Math.atan2(mouseY - this.canvasElement.height - 25, mouseX - this.canvasElement.width / 2 - 2.5) * 180) / Math.PI;
@@ -178,9 +178,9 @@ class Game {
 
     pickParticles(player) {
         this.particles.forEach((particle) => {
-            if (!particle.isInInventory && particle.isGrounded && this.ctx.isPointInPath(this.playerPath, particle.x, particle.y)) {
+            if (!particle.isInInventory && !particle.isRotating && particle.isGrounded && this.ctx.isPointInPath(this.playerPath, particle.x, particle.y)) {
                 particle.isInInventory = true;
-                player.pickParticle(particle);
+                player.pickParticle(particle, this.level);
             }
         });
     }

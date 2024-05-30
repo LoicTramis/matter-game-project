@@ -1,41 +1,78 @@
-window.onload = function () {
-    /* === BUTTON === */
-    const startButton = document.getElementById("start-button");
-    /* === SCREENS === */
-    const startScreen = document.getElementById("start-screen");
-    const gameScreen = document.getElementById("game-screen");
+/* === BUTTON === */
+const startButton = document.getElementById("start-button");
+const nextButton = document.getElementById("next-button");
+const quitButton = document.getElementById("quit-button");
+/* === SCREENS === */
+const startScreen = document.getElementById("start-screen");
+const gameScreen = document.getElementById("game-screen");
+const endScreen = document.getElementById("end-screen");
+const overScreen = document.getElementById("over-screen");
+/* === HTML ELEMENT === */
+const stuffElement = document.getElementById("stuff");
 
-    /* === LEVELS === */
-    const levels = [
-        {
-            level: 1,
-            life: 3,
-            nbOfElectrons: 3,
-            nbOfProtons: 2,
-            nbOfNeutrons: 0,
-            goal: "Create Hydrogen",
-            won: false,
-            loose: false,
-        },
-        {
-            level: 2,
-            life: 3,
-            nbOfElectrons: 4,
-            nbOfProtons: 4,
-            nbOfNeutrons: 4,
-            goal: "Create Helium",
-            won: false,
-            loose: false,
-        },
-    ];
+/* === LEVELS === */
+const levels = [
+    {
+        level: 1,
+        life: 3,
+        nbOfElectrons: 3,
+        nbOfProtons: 2,
+        nbOfNeutrons: 0,
+        goal: "Create Hydrogen",
+        won: false,
+        loose: false,
+    },
+    {
+        level: 2,
+        life: 3,
+        nbOfElectrons: 4,
+        nbOfProtons: 4,
+        nbOfNeutrons: 4,
+        goal: "Create Helium",
+        won: false,
+        loose: false,
+    },
+];
 
-    startButton.addEventListener("click", () => {
-        startScreen.style.display = "none";
-        gameScreen.style.display = "flex";
+startButton.addEventListener("click", () => {
+    console.log("start click");
+    startScreen.style.display = "none";
+    gameScreen.style.display = "flex";
+    endScreen.style.display = "none";
+    overScreen.style.display = "none";
 
+    stuffElement.style.display = "flex";
+
+    loadLevel();
+});
+quitButton.addEventListener("click", () => {
+    console.log("quit click");
+    startScreen.style.display = "flex";
+    gameScreen.style.display = "none";
+    endScreen.style.display = "none";
+    overScreen.style.display = "none";
+
+    stuffElement.style.display = "flex";
+    levels.forEach((level) => (level.won = false));
+});
+nextButton.addEventListener("click", () => {
+    console.log("next click");
+    startScreen.style.display = "none";
+    endScreen.style.display = "none";
+    gameScreen.style.display = "flex";
+    overScreen.style.display = "none";
+
+    stuffElement.style.display = "flex";
+    loadLevel();
+});
+
+function loadLevel() {
+    if (!levels[0].won) {
         loadGame(levels[0]);
-    });
-};
+    } else if (!levels[1].won) {
+        loadGame(levels[1]);
+    }
+}
 
 function loadGame(level) {
     /* === GET DOM === */
@@ -63,9 +100,7 @@ function loadGame(level) {
         ArrowRight: false,
     };
 
-    const game = new Game(canvasElement, canvasWidth, canvasHeight);
-
-    // Transparent square
+    const game = new Game(canvasElement, canvasWidth, canvasHeight, level);
     const player = new Player(playerPosition.x, playerPosition.y, 5, "#00000000");
     let mouseX, mouseY;
 
@@ -87,6 +122,15 @@ function loadGame(level) {
         }
         inventoryList.appendChild(inventoryItem);
         inventoryElement.appendChild(inventoryList);
+    }
+    /* === WIN CONDITION === */
+    function checkWinCondition() {
+        console.log(game.level.won);
+        if (game.level.won) {
+            gameScreen.style.display = "none";
+            stuffElement.style.display = "hidden";
+            endScreen.style.display = "flex";
+        }
     }
 
     function mouseMove(e) {
@@ -111,6 +155,7 @@ function loadGame(level) {
             // console.log(game.particles);
         }
         displayInventory();
+        checkWinCondition(level);
     }
 
     game.canvasElement.addEventListener("mousemove", mouseMove);

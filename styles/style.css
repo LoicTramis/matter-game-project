@@ -23,20 +23,20 @@ section {
     background-color: transparent;
     display: flex;
 }
-#start-screen {
+#start-screen,
+#end-screen {
     display: flex;
     justify-content: center;
     align-items: start;
     text-align: center;
     padding-top: 10vh;
-
     article {
         display: flex;
         flex-direction: column;
-        gap: 1.1rem;
-        width: 30%;
+        justify-content: center;
+        width: 40%;
         h2 {
-            font-size: 3rem;
+            font-size: 2.2rem;
             font-weight: 100;
             text-transform: uppercase;
         }
@@ -62,7 +62,19 @@ section {
         }
     }
 }
-#game-screen {
+#end-screen > article > div {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 2rem;
+
+    button {
+        flex-grow: 1;
+    }
+}
+#game-screen,
+#end-screen,
+#over-screen {
     display: none;
 }
 #status {
@@ -111,4 +123,10 @@ section {
 .heavy {
     font-weight: 900;
     letter-spacing: 9px;
+    text-transform: uppercase;
+    font-size: 3rem;
+}
+.line {
+    display: block;
+    margin: 1rem 0;
 }
