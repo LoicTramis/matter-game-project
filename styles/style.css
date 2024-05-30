@@ -1,4 +1,4 @@
-@import url('./fonts.css');
+@import url("./fonts.css");
 
 * {
     margin: 0;
@@ -9,11 +9,11 @@ html {
     background: linear-gradient(#240142, #7e3f38);
 }
 body {
-    background-image:url("../assets/ground.png");
+    background-image: url("../assets/ground.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: bottom;
-    font-family: 'Nexa';
+    font-family: "Nexa";
     color: white;
 }
 section {
@@ -35,7 +35,7 @@ section {
         flex-direction: column;
         gap: 1.1rem;
         width: 30%;
-        h3 {
+        h2 {
             font-size: 3rem;
             font-weight: 100;
             text-transform: uppercase;
@@ -43,8 +43,8 @@ section {
         p {
             font-size: 1.4em;
         }
-        button {            
-            font-family: 'Nexa';
+        button {
+            font-family: "Nexa";
             font-size: 1.7rem;
             text-transform: uppercase;
             color: #f59706;
@@ -54,9 +54,9 @@ section {
             border: solid 3px #f07c05;
             border-radius: 10px;
         }
-        button:hover {        
-            cursor: pointer;    
-            background-color: rgba(0,0,0,0.2);
+        button:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.2);
             border-color: #ef4f05;
             color: #ef4f05;
         }
@@ -78,13 +78,16 @@ section {
 }
 #game:focus {
     border: none;
-    outline: none
+    outline: none;
 }
 
-#app {
+#rules {
     position: relative;
     width: 15vw;
     background-color: transparent;
+    ul {
+        list-style-type: none;
+    }
 }
 #stuff {
     background-color: transparent;

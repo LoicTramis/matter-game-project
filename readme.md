@@ -1,7 +1,8 @@
-# Kurzgesagt style game
+# Matter game
 
-1. Generate random particle at the top of the canvas
-2. linear gradient for background
+_You arrived on Mars and need water to survive. Combine elementary particles to **create water** and thrive on this planet._
+
+<p style="font-size: 1.5rem; font-weight:bold;"><a src="https://loictramis.github.io/matter-game-project/"> PLAY HERE</a></p>
 
 ### Environment
 - Sets of protons are generated for each level ()
@@ -43,3 +44,6 @@ Lvl 4 create Water
 - particle accelerator (can create neutron)
 
 Guns have a sniper laser
+
+### Credit
+- Kurzgesagt

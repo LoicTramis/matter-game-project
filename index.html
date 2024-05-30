@@ -11,21 +11,36 @@
 <body>
     <section id="start-screen">
         <article>
-            <h3>Welcome to the <span class="heavy">matter game</span></h3>
+            <h2>Welcome to the <span class="heavy">matter game</span></h2>
             <p>You arrived on Mars but you need water to survive.</p>
-            <p>Start <span class="bold">combining elementary particle</span> to create <span class="bold">water</span> and thrive on this planet!</p>
+            <p>Start <span class="bold">combining elementary particle</span> to create <span class="bold">water</span>
+                and thrive on this planet!</p>
             <button id="start-button">Start</button>
         </article>
     </section>
     <section id="game-screen">
-        <div id="status"></div>
+        <div id="status">
+            <h3 id="status-level"></h3>
+            <h3 id="status-life">Life</h3>
+            <h3 id="status-score">Score</h3>
+        </div>
         <canvas tabindex='1' id="game"></canvas>
-        <div id="app"></div>
+        <div id="rules">
+            <h3>How to play</h3>
+            <ul>
+                <li>Left - Right: move player </li>
+                <li>Space: switch gun</li>
+                <li>Click: activate gun</li>
+            </ul>
+            <h3>Goal</h3>
+            <p id="rules-goal"></p>
+        </div>
     </section>
     <div id="stuff"></div>
 
     <script src="./src/Particle.js"></script>
     <script src="./src/Electron.js"></script>
+    <script src="./src/Neutron.js"></script>
     <script src="./src/Proton.js"></script>
     <script src="./src/Player.js"></script>
     <script src="./src/Game.js"></script>
