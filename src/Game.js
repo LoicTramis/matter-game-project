@@ -203,13 +203,11 @@ class Game {
                 const particle2 = this.particles[j];
 
                 if (particle1 !== particle2 && (particle1.isThrown || particle2.isThrown) && particle1.isParticleClose(particle2)) {
-                    // This is working
                     if (particle1.constructor.name === "Electron" && particle2.constructor.name === "Proton") {
                         particle1.combine(particle1, particle2);
                         break particles;
                     }
-                    // ! This is not working
-                    // Bring the proton
+
                     if (particle1.constructor.name === "Proton" && particle2.constructor.name === "Electron") {
                         particle2.combine(particle2, particle1);
                         break particles;

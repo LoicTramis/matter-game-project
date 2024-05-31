@@ -4,23 +4,19 @@ _You arrived on Mars and need water to survive. Combine elementary particles to 
 
 <p style="font-size: 1.5rem; font-weight:bold;"><a href="https://loictramis.github.io/matter-game-project/">PLAY HERE</a></p>
 
-### Environment
-- Sets of protons are generated for each level ()
-- Player has predefined sets of electron to throw
-- 
+## Presentation
+
+In this game you'll learn about basic chemistry while having fun throwing some particles around. The main goal is to make science fun and easy to understand. 
+I always wanted to create to small game about the interaction of elementary particles. Now it's your turn to learn about them.
+
+## GAMEPLAY
 
 ### Rules
-- Particle close to the ground drops on the ground and can be picked up
-- Newly created particle drop into the ground immediately
-- Instable particle decay
-  - cations loose electron
-  - anions steal electron
-  - isotrops eject neutron
+- Pick up electron and throw them at proton to create atom using laser
 
 ### Playstyle
 - Pick up particle from the ground
 - Particle in the inventory can be shoot
-- Go in the laser cabin
 - Shoot particle to another particle to create new particle
 
 ### Gameplay
@@ -31,19 +27,21 @@ _You arrived on Mars and need water to survive. Combine elementary particles to 
 - mouse click to trigger guns
 - move onto a particle to pick it up
 
-### Challenge
+### Levels
 Lvl 1 create Hydrogen
-Lvl 2 create Helium, Boron, Lithium
-Lvl 3 new item unlock (particle accelerator gun) create ions and isotrops
-Lvl 4 create Water
+Lvl 2 to 8 create Helium to oxygen
+Lvl 9 create dioxygen
+Lvl 10 create Water
 
 
 ### Equipment
-
+- accelerator gun
 - gravity gun
-- particle accelerator (can create neutron)
 
-Guns have a sniper laser
+## What's to come
+- Level 2 from 10
+- Bonus quest for isotopes
+- Bonus quest for ions
 
-### Credit
+## Credit
 - Kurzgesagt
