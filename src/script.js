@@ -9,7 +9,6 @@ const endScreen = document.getElementById("end-screen");
 const overScreen = document.getElementById("over-screen");
 /* === HTML ELEMENT === */
 const stuffElement = document.getElementById("stuff");
-let game;
 
 /* === LEVELS === */
 const levels = [
@@ -101,7 +100,7 @@ function loadGame(level) {
         ArrowRight: false,
     };
 
-    game = new Game(canvasElement, canvasWidth, canvasHeight, level);
+    const game = new Game(canvasElement, canvasWidth, canvasHeight, level);
     const player = new Player(playerPosition.x, playerPosition.y, 5, "#00000000");
     let mouseX, mouseY;
 
@@ -131,7 +130,7 @@ function loadGame(level) {
             gameScreen.style.display = "none";
             stuffElement.style.display = "hidden";
             endScreen.style.display = "flex";
-            game.level.won = f;
+            game.level.won = false;
         }
     }
 
