@@ -8,7 +8,7 @@ _You arrived on Mars and need water to survive. Combine elementary particles to 
 
 - [Presentation](#presentation)
 - [Gameplay](#gameplay)
-- [Screenshots](#scre)
+- [Screenshots](#screenshots)
 
 ## PRESENTATION
 
@@ -27,32 +27,29 @@ I always wanted to create to small game about the interaction of elementary part
 - Particle in the inventory can be shoot
 - Atom can be created from particles
 
-### Playstyle
-
-- Pick up electron from the ground
-- Throw them at proton to create new atom
-- Drop them on the ground to pick it up
-
 ### Gameplay
 
-- "<--" move player to the left
-- "-->" move player to the right
+- "<-" move player to the left
+- "->" move player to the right
 - "space" switch between guns
 - mouse movement to aim with the guns
 - mouse click to trigger guns
 - move onto a particle to pick it up
 
-### Levels
-
-Lvl 1 create Hydrogen
-Lvl 2 to 8 create Helium to oxygen
-Lvl 9 create dioxygen
-Lvl 10 create Water
-
 ### Equipment
 
-- accelerator gun
-- gravity gun
+- Accelerator gun
+- Gravity gun
+- Subatomic bag
+
+### Levels
+
+| LEVEL      | GOAL                    |
+| ---------- | ----------------------- |
+| 1          | create Hydrogen         |
+| 2 to 8     | create Helium to Oxygen |
+| 9          | create Dioxygen         |
+| 10 (final) | create Water            |
 
 ## SCREENSHOTS
 
