@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Particles</title>
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <section id="start-screen">
+        <article>
+            <h2>Welcome to the matter game!<span class="heavy line">particles</span></h2>
+            <p>You arrived on Mars but you need water to survive.</p>
+            <p>Start <span class="bold">combining elementary particle</span> to create <span class="bold">water</span>
+                and thrive on this planet!</p>
+            <button id="start-button">Start</button>
+        </article>
+    </section>
+    <section id="end-screen">
+        <article>
+            <h2>Congratulation!</h2>
+            <p>You have created <span class="heavy line">hydrogen</span>
+                <img src="./assets/hydrogen.png" width="45" />
+            </p>
+            <div>
+                <button id="next-button">Next</button>
+                <button id="quit-button">Quit</button>
+            </div>
+        </article>
+    </section>
+    <section id="over-screen">
+        <article>
+            <h2><span class="heavy">game over</span>
+                <p>You're out of electrons. You cannot create element anymore</p>
+            </h2>
+
+            <div>
+                <button id="retry-button">Retry</button>
+                <button id="quit-button">Quit</button>
+            </div>
+        </article>
+    </section>
+    <section id="game-screen">
+        <div id="status">
+            <h3 id="status-level"></h3>
+            <h3 id="status-life">Life: <span></span></h3>
+        </div>
+        <canvas tabindex='1' id="game"></canvas>
+        <div id="rules">
+            <h3>How to play</h3>
+            <ul>
+                <li>Left - Right: move player </li>
+                <li>Space: switch gun</li>
+                <li>Click: activate gun</li>
+            </ul>
+            <h3>Goal</h3>
+            <p id="rules-goal"></p>
+        </div>
+    </section>
+    <div id="stuff"></div>
+
+
+    <script src="./src/Particle.js"></script>
+    <script src="./src/Electron.js"></script>
+    <script src="./src/Neutron.js"></script>
+    <script src="./src/Proton.js"></script>
+    <script src="./src/Player.js"></script>
+    <script src="./src/Game.js"></script>
+    <script src="./src/script.js"></script>
+</body>
+
+</html>

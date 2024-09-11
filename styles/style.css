@@ -1,0 +1,132 @@
+@import url("./fonts.css");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    background: linear-gradient(#240142, #7e3f38);
+}
+body {
+    background-image: url("../assets/ground.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    font-family: "Nexa";
+    color: white;
+}
+section {
+    position: relative;
+    height: 80vh;
+    width: 100vw;
+    background-color: transparent;
+    display: flex;
+}
+#start-screen,
+#end-screen {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    text-align: center;
+    padding-top: 10vh;
+    article {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 40%;
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 100;
+            text-transform: uppercase;
+        }
+        p {
+            font-size: 1.4em;
+        }
+        button {
+            font-family: "Nexa";
+            font-size: 1.7rem;
+            text-transform: uppercase;
+            color: #f59706;
+            background-color: inherit;
+            margin-top: 1.5rem;
+            padding: 0.5rem;
+            border: solid 3px #f07c05;
+            border-radius: 10px;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-color: #ef4f05;
+            color: #ef4f05;
+        }
+    }
+}
+#end-screen > article > div {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    gap: 2rem;
+
+    button {
+        flex-grow: 1;
+    }
+}
+#game-screen,
+#end-screen,
+#over-screen {
+    display: none;
+}
+#status {
+    position: relative;
+    width: 15vw;
+    background-color: transparent;
+}
+
+#game {
+    position: relative;
+    width: 70vw;
+    background-color: transparent;
+}
+#game:focus {
+    border: none;
+    outline: none;
+}
+
+#rules {
+    position: relative;
+    width: 15vw;
+    background-color: transparent;
+    ul {
+        list-style-type: none;
+    }
+}
+#stuff {
+    background-color: transparent;
+    height: 20vh;
+    display: flex;
+    padding: 2rem 15vw;
+    ul {
+        display: flex;
+        gap: 2rem;
+
+        li {
+            list-style-type: none;
+        }
+    }
+}
+
+.bold {
+    font-weight: bold;
+    font-style: italic;
+}
+.heavy {
+    font-weight: 900;
+    letter-spacing: 9px;
+    text-transform: uppercase;
+    font-size: 3rem;
+}
+.line {
+    display: block;
+    margin: 1rem 0;
+}
